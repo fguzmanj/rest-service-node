@@ -12,12 +12,13 @@ app.get("/", (req, res) => {
 
 app.post("/add", (req, res) => {
     const { a, b } = req.body;
+    const result=0;
     res.send({
         result: parseInt(a) + parseInt(b)
     });
     console.log(result)
 });
 
-app.listen(5000, () => {
+app.listen(5000, () => {/* Puerto donde se ejecuta el proyecto */
     console.log(`Server is running on port 5000.`);
 });

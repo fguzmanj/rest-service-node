@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rest CLient</title>
+</head>
+<body>
+    <form action="">
+        <label>Number 1</label>
+        <input id="num1" type="number"><!-- tipo numero -->
+
+        <label>Number 2</label>
+        <input id="num2" type="number">
+
+        <input type="submit" value="Add">
+    </form>
+
+    <div class="result">
+        Click Add!
+    </div>
+
+    <script>
+        document.addEventListener("submit", sendData);/*llama la función sendData*/
+    
+        function sendData(e) {/*función del summit*/
+            e.preventDefault();//con esto no envía la info al server sino que ejecute la función
+            const a = document.querySelector("#num1").value;//Seleccionar los dos valores del html
+            const b = document.querySelector("#num2").value;
+
+            const options = {/*cabecera de opciones*/
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/jason"
+                },
+                body: JSON.stringify({
+                    a: parseInt(a),
+                    b: parseInt(b)
+                })
+            };
+
+            fetch("http://localhost:5000/add", options)//gestiona una petición http
+            /*elementos de promesa*/
+            .then(response => response.json())/*resultado de la petición*/
+            .then( data => {
+                const {result} = data;
+                document.querySelector(".result").innerText = `The sum is: ${result}`;
+            })/*sacar los datos*/
+            .catch( err => console.log( err ) );/*muestra un error por consola*/
+        }
+    </script>
+</body>
+
+
+
+</html>
